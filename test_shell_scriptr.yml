@@ -1,0 +1,44 @@
+- name: shell cmd testing
+  hosts: "{{ HOSTS }}"
+  gather_facts: no 
+
+  tasks: 
+  - name: shell cmd
+    shell: ps -ef 
+    register: var_shell
+  - name: print register var
+    debug:
+     msg: "{{ var_shell }}"    
+  
+  - name: os version
+    shell: cat /etc/os-release
+    register: var_os_version
+
+  - name: print register os cat var
+    debug:  
+     var: var_os_version
+
+  - name: os version
+    shell: uname -a
+    register: var_os_ver
+  
+  - name: print register os var
+    debug:
+     var: var_os_ver
+
+  - name: print date
+    shell: "date"  
+    register: var_date
+  - name: print register var
+    debug:
+     var: var_date 
+
+
+  - name: current dir 
+    shell: "pwd" 
+
+
+  - name: Gathering minimum facts
+    setup:
+      gather_subset: min,!all
+
